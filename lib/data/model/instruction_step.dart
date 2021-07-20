@@ -15,7 +15,7 @@ class InstructionStep {
         ingredients = (json["ingredients"] as List)
             .map((e) => Ingredient.fromJson(e))
             .toList(),
-        equipments = (json["equipments"] as List)
+        equipments = (json["equipment"] as List)
             .map((e) => Equipment.fromJson(e))
             .toList();
 
