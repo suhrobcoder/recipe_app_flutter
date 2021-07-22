@@ -97,9 +97,9 @@ class SavedRecipes {
     Batch batch = db.batch();
     for (var step in steps) {
       int instructionId = step.getId(recipe.id);
-      insertInstructionStep(batch, step, recipe.id);
-      insertEquipments(batch, step.equipments, instructionId);
-      insertIngredients(batch, step.ingredients, instructionId);
+      _insertInstructionStep(batch, step, recipe.id);
+      _insertEquipments(batch, step.equipments, instructionId);
+      _insertIngredients(batch, step.ingredients, instructionId);
     }
     batch.insert(
       "recipe",
@@ -129,8 +129,8 @@ class SavedRecipes {
       var instructionStepId = instructionRes["id"] as int;
       instructions.add(InstructionStep.fromMap(
           instructionRes,
-          await getIngredients(db, instructionStepId),
-          await getEquipments(db, instructionStepId)));
+          await _getIngredients(db, instructionStepId),
+          await _getEquipments(db, instructionStepId)));
     }
     var result = await db.query("recipe", where: "id = ?", whereArgs: [id]);
     return result.isEmpty
@@ -138,7 +138,7 @@ class SavedRecipes {
         : Recipe.fromMap(result[0], [Instruction("", instructions)]);
   }
 
-  insertInstructionStep(
+  _insertInstructionStep(
     Batch batch,
     InstructionStep step,
     int recipeId,
@@ -147,7 +147,8 @@ class SavedRecipes {
         conflictAlgorithm: ConflictAlgorithm.ignore);
   }
 
-  insertEquipments(Batch batch, List<Equipment> equipments, int instructionId) {
+  _insertEquipments(
+      Batch batch, List<Equipment> equipments, int instructionId) {
     for (var equipment in equipments) {
       batch.insert("equipment", equipment.toMap(),
           conflictAlgorithm: ConflictAlgorithm.ignore);
@@ -159,7 +160,7 @@ class SavedRecipes {
     }
   }
 
-  insertIngredients(
+  _insertIngredients(
       Batch batch, List<Ingredient> ingredients, int instructionId) {
     for (var ingredient in ingredients) {
       batch.insert(
@@ -175,7 +176,7 @@ class SavedRecipes {
     }
   }
 
-  Future<List<Equipment>> getEquipments(
+  Future<List<Equipment>> _getEquipments(
       Database db, int instructionStepId) async {
     var instructionEquipmentRel = await db.query(
       "instruction_equipment_relation",
@@ -197,7 +198,7 @@ class SavedRecipes {
     return equipments;
   }
 
-  Future<List<Ingredient>> getIngredients(
+  Future<List<Ingredient>> _getIngredients(
       Database db, int instructionStepId) async {
     var instructionIngredientRel = await db.query(
         "instruction_ingredient_relation",
