@@ -206,8 +206,11 @@ class SavedRecipes {
     List<Ingredient> ingredients = [];
     for (var instructionIngredientRelItem in instructionIngredientRel) {
       int ingredientId = instructionIngredientRelItem["ingredientId"] as int;
-      var ingredientRes = await db
-          .query("ingredient", where: "id = ?", whereArgs: [ingredientId],);
+      var ingredientRes = await db.query(
+        "ingredient",
+        where: "id = ?",
+        whereArgs: [ingredientId],
+      );
       if (ingredientRes.isNotEmpty) {
         ingredients.add(Ingredient.fromMap(ingredientRes[0]));
       }
