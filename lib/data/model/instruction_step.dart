@@ -21,11 +21,15 @@ class InstructionStep {
 
   Map<String, dynamic> toMap(int recipeId) {
     return {
-      "id": recipeId * 100 + number,
+      "id": getId(recipeId),
       "recipeId": recipeId,
       "number": number,
       "step": step,
     };
+  }
+  
+  int getId(int recipeId) {
+    return recipeId * 100 + number;
   }
 
   InstructionStep.fromMap(

@@ -10,10 +10,9 @@ class Ingredient {
         name = json["name"],
         image = json["image"];
 
-  Map<String, dynamic> toMap(int instructionId) {
+  Map<String, dynamic> toMap() {
     return {
       "id": id,
-      "instructionId": instructionId,
       "name": name,
       "image": image,
     };
