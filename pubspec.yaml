@@ -17,6 +17,8 @@ dependencies:
   path_provider: ^2.0.2
   get: ^4.1.4
   get_storage: ^2.0.3
+  flutter_svg: ^0.22.0
+  cached_network_image: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -25,6 +27,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
 
   fonts:
     - family: SFPro

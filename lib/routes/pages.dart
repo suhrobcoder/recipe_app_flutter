@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:recipe_app/pages/home/binding.dart';
 import 'package:recipe_app/pages/home/page.dart';
 import 'package:recipe_app/pages/onboarding/binding.dart';
 import 'package:recipe_app/pages/onboarding/page.dart';
@@ -15,6 +16,7 @@ abstract class AppPages {
     GetPage(
       name: Routes.home,
       page: () => HomePage(),
+      binding: HomePageBinding(),
     ),
   ];
 }
