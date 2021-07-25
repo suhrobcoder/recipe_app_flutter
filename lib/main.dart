@@ -10,9 +10,12 @@ import 'data/services/saved_recipes_service.dart';
 import 'routes/routes.dart';
 
 void main() async {
-  await GetStorage.init();
+  await GetStorage.init("app_config");
+  await GetStorage.init("settings");
   await initServices();
-  runApp(const MyApp());
+  runApp(MyApp(
+    Get.find<AppConfigService>().isFirstRun() ? Routes.onboarding : Routes.home,
+  ));
 }
 
 Future initServices() async {
@@ -23,16 +26,16 @@ Future initServices() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final String initialRoute;
+  const MyApp(this.initialRoute, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Recipe App',
-      home: const Text("Hello World"),
       debugShowCheckedModeBanner: false,
       getPages: AppPages.pages,
-      initialRoute: Routes.onboarding,
+      initialRoute: initialRoute,
     );
   }
 }
