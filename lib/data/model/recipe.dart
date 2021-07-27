@@ -10,6 +10,7 @@ class Recipe {
   final String? instructions;
   final List<String> cuisines;
   final List<String> diets;
+  final int servings;
   final List<Instruction> analyzedInstructions;
 
   Recipe(
@@ -22,7 +23,8 @@ class Recipe {
       this.instructions,
       this.cuisines,
       this.diets,
-      this.analyzedInstructions);
+      this.analyzedInstructions,
+      this.servings);
 
   Recipe.fromJson(Map<String, dynamic> json)
       : id = json["id"],
@@ -36,7 +38,8 @@ class Recipe {
         diets = (json["diets"] as List).map((e) => e as String).toList(),
         analyzedInstructions = (json["analyzedInstructions"] as List)
             .map((e) => Instruction.fromJson(e))
-            .toList();
+            .toList(),
+        servings = json["servings"];
 
   Map<String, dynamic> toMap() {
     return {
@@ -49,6 +52,7 @@ class Recipe {
       "instructions": instructions,
       "cuisines": cuisines.join("|"),
       "diets": diets.join("|"),
+      "servings": servings,
     };
   }
 
@@ -61,5 +65,6 @@ class Recipe {
         readyInMinutes = map["readyInMinutes"],
         instructions = map["instructions"],
         cuisines = (map["cuisines"] as String).split("|"),
-        diets = (map["diets"] as String).split("|");
+        diets = (map["diets"] as String).split("|"),
+        servings = map["servings"];
 }
