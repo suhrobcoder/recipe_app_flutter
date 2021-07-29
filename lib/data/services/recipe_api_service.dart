@@ -20,7 +20,7 @@ class RecipeApiService extends GetxService {
       String query,
       List<String> cuisine,
       String diet,
-      intelorances,
+      List<String> intelorances,
       String type,
       List<String> includeIngredients,
       int maxReadyTime,
@@ -86,17 +86,13 @@ const diets = [
 
 const mealTypes = [
   "main course",
-  "side dish",
   "dessert",
-  "appetizer",
   "salad",
   "bread",
   "breakfast",
   "soup",
-  "beverage",
   "sauce",
   "marinade",
-  "fingerfood",
   "snack",
   "drink",
 ];

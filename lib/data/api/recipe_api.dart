@@ -27,7 +27,7 @@ class RecipeApi {
     String query,
     List<String> cuisine,
     String diet,
-    intelorances,
+    List<String> intelorances,
     String type,
     List<String> includeIngredients,
     int maxReadyTime,
@@ -38,17 +38,19 @@ class RecipeApi {
   ) async {
     Map<String, dynamic> parameters = {
       "query": query,
-      "cuisine": cuisine.join(", "),
-      "diet": diet,
-      "intelorances": intelorances,
-      "type": type,
-      "includeIngredients": includeIngredients.join(", "),
-      "maxReadyTime": maxReadyTime,
-      "sort": sort,
-      "sortDirection": sortDirection,
       "number": number,
       "offset": offset,
     };
+    if (cuisine.isNotEmpty) parameters["cuisine"] = cuisine.join(", ");
+    if (diet.isNotEmpty) parameters["diet"] = diet;
+    if (intelorances.isNotEmpty)
+      parameters["intelorances"] = intelorances.join(", ");
+    if (type.isNotEmpty) parameters["type"] = type;
+    if (includeIngredients.isNotEmpty)
+      parameters["includeIngredients"] = includeIngredients.join(", ");
+    if (maxReadyTime != 0) parameters["maxReadyTime"] = maxReadyTime;
+    if (sort.isNotEmpty) parameters["sort"] = sort;
+    if (sortDirection.isNotEmpty) parameters["sortDirection"] = sortDirection;
     Response response = await _dio.get(
       "recipes/complexSearch",
       queryParameters: parameters,

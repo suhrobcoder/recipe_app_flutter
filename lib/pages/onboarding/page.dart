@@ -6,7 +6,7 @@ import 'package:recipe_app/pages/onboarding/onboarding_step.dart';
 import 'package:recipe_app/theme/color_theme.dart';
 import 'package:recipe_app/theme/constantas.dart';
 
-import 'widgets/recipe_chip.dart';
+import '../../widgets/recipe_chip.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({Key? key}) : super(key: key);

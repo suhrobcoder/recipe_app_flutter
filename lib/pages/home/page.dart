@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:recipe_app/pages/home/controller.dart';
 import 'package:recipe_app/pages/home/pages/recipes/page.dart';
+import 'package:recipe_app/pages/home/pages/search/page.dart';
 import 'package:recipe_app/theme/color_theme.dart';
 
 class HomePage extends StatelessWidget {
@@ -38,8 +39,7 @@ class HomePage extends StatelessWidget {
               selectedFontSize: 14,
               unselectedFontSize: 14,
               type: BottomNavigationBarType.fixed,
-              onTap: (index) =>
-                  controller.selectedTab(index),
+              onTap: (index) => controller.selectedTab(index),
             ),
           ),
           body: IndexedStack(
@@ -79,7 +79,7 @@ class HomeBottomNav {
 
 final homeContents = [
   HomeBottomNav("Recipes", "ic_recipe.svg", RecipesPage(), RecipesAppBar()),
-  HomeBottomNav("Search", "ic_search.svg", Text("Search"), AppBar()),
+  HomeBottomNav("Search", "ic_search.svg", SearchPage(), SearchAppBar()),
   HomeBottomNav("Saved", "ic_bookmark.svg", Text("Saved"), AppBar()),
   HomeBottomNav("Settings", "ic_settings.svg", Text("Settings"), AppBar()),
 ];
