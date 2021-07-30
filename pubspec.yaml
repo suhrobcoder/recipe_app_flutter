@@ -19,6 +19,7 @@ dependencies:
   get_storage: ^2.0.3
   flutter_svg: ^0.22.0
   cached_network_image: ^3.0.0
+  settings_ui: ^1.0.0
 
 dev_dependencies:
   flutter_test:

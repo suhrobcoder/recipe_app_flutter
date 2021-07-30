@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:recipe_app/pages/home/controller.dart';
 import 'package:recipe_app/pages/home/pages/recipes/page.dart';
 import 'package:recipe_app/pages/home/pages/search/page.dart';
+import 'package:recipe_app/pages/home/pages/settings/page.dart';
 import 'package:recipe_app/theme/color_theme.dart';
 
 class HomePage extends StatelessWidget {
@@ -81,5 +82,6 @@ final homeContents = [
   HomeBottomNav("Recipes", "ic_recipe.svg", RecipesPage(), RecipesAppBar()),
   HomeBottomNav("Search", "ic_search.svg", SearchPage(), SearchAppBar()),
   HomeBottomNav("Saved", "ic_bookmark.svg", Text("Saved"), AppBar()),
-  HomeBottomNav("Settings", "ic_settings.svg", Text("Settings"), AppBar()),
+  HomeBottomNav(
+      "Settings", "ic_settings.svg", SettingsPage(), SettingsAppBar()),
 ];
