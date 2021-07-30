@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:recipe_app/data/database/saved_recipes.dart';
 import 'package:recipe_app/data/model/recipe.dart';
 import 'package:recipe_app/data/services/recipe_api_service.dart';
 
@@ -17,6 +18,9 @@ class RecipesPageController extends GetxController {
     error.value = "";
     try {
       var res = await _apiService.getRandomRecipes([]);
+      for (var element in res.recipes) {
+        SavedRecipes.instance.insertRecipe(element);
+      }
       randomRecipes.value = res.recipes;
     } catch (err) {
       error.value = err.toString();

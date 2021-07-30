@@ -61,7 +61,7 @@ class Recipe {
         title = map["title"],
         summary = map["summary"],
         image = map["image"],
-        vegetarian = map["vegetarian"],
+        vegetarian = map["vegetarian"] == 1,
         readyInMinutes = map["readyInMinutes"],
         instructions = map["instructions"],
         cuisines = (map["cuisines"] as String).split("|"),

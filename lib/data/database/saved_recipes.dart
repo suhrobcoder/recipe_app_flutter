@@ -13,6 +13,7 @@ const _dbName = "saved_recipe.db";
 const _dbVersion = 1;
 
 class SavedRecipes {
+  Function onChange = () {};
   SavedRecipes._privateConstructor();
 
   static final SavedRecipes instance = SavedRecipes._privateConstructor();
@@ -45,7 +46,8 @@ class SavedRecipes {
         readyInMinutes INTEGER,
         instructions TEXT,
         cuisines TEXT NOT NULL,
-        diets TEXT NOT NULL
+        diets TEXT NOT NULL,
+        servings INTEGER NOT NULL
       )
     ''');
     await db.execute('''
@@ -107,11 +109,13 @@ class SavedRecipes {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
     await batch.commit();
+    onChange();
   }
 
   Future deleteRecipe(int id) async {
     final db = await database;
     await db.delete("recipe", where: "id = ?", whereArgs: [id]);
+    onChange();
   }
 
   Future<List<Recipe>> getAllRecipes() async {
