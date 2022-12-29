@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:recipe_app/data/services/app_config_service.dart';
 import 'package:recipe_app/data/services/app_settings_service.dart';
 import 'package:recipe_app/data/services/recipe_api_service.dart';
+import 'package:recipe_app/di/init_get_it.dart';
 import 'package:recipe_app/routes/pages.dart';
 
 import 'data/services/saved_recipes_service.dart';
@@ -13,6 +14,7 @@ void main() async {
   await GetStorage.init("app_config");
   await GetStorage.init("settings");
   await initServices();
+  await configureDependencies();
   runApp(MyApp(
     Get.find<AppConfigService>().isFirstRun() ? Routes.onboarding : Routes.home,
   ));
