@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:recipe_app/data/model/recipe_search_item.dart';
 import 'package:recipe_app/data/services/recipe_api_service.dart';
+import 'package:recipe_app/routes/routes.dart';
 
 class SearchPageController extends GetxController {
   final RecipeApiService service;
@@ -60,6 +61,6 @@ class SearchPageController extends GetxController {
   }
 
   void recipeClick(RecipeSearchItem recipe) {
-    print(recipe.title);
+    Get.toNamed(Routes.details, arguments: recipe);
   }
 }

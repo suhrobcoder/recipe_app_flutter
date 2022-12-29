@@ -39,7 +39,7 @@ class RecipeCard extends StatelessWidget {
         color: Colors.white,
       ),
       child: GestureDetector(
-        onTap: () => onClick,
+        onTap: () => onClick(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -51,11 +51,14 @@ class RecipeCard extends StatelessWidget {
               child: Container(
                 width: 250,
                 height: 160,
-                child: CachedNetworkImage(
-                  imageUrl: imageUrl,
-                  fit: BoxFit.cover,
-                  placeholder: (_, url) => const RecipePlaceholder(),
-                  errorWidget: (_, url, error) => const RecipePlaceholder(),
+                child: Hero(
+                  tag: title,
+                  child: CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    fit: BoxFit.cover,
+                    placeholder: (_, url) => const RecipePlaceholder(),
+                    errorWidget: (_, url, error) => const RecipePlaceholder(),
+                  ),
                 ),
               ),
             ),

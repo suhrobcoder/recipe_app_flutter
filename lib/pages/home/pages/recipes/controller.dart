@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:recipe_app/data/database/saved_recipes.dart';
 import 'package:recipe_app/data/model/recipe.dart';
 import 'package:recipe_app/data/services/recipe_api_service.dart';
+import 'package:recipe_app/routes/routes.dart';
 
 class RecipesPageController extends GetxController {
   final RecipeApiService _apiService;
@@ -29,5 +30,7 @@ class RecipesPageController extends GetxController {
     }
   }
 
-  onClickRecipe(Recipe recipe) {}
+  onClickRecipe(Recipe recipe) {
+    Get.toNamed(Routes.details, arguments: recipe);
+  }
 }

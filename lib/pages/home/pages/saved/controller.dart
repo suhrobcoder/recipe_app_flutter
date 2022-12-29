@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:recipe_app/data/database/saved_recipes.dart';
 import 'package:recipe_app/data/model/recipe.dart';
 import 'package:recipe_app/data/services/saved_recipes_service.dart';
+import 'package:recipe_app/routes/routes.dart';
 
 class SavedPageController extends GetxController {
   final SavedRecipesService savedRecipesService;
@@ -25,5 +26,6 @@ class SavedPageController extends GetxController {
   void clickRecipe(int recipeId) {
     Recipe recipe =
         savedRecipes.where((element) => element.id == recipeId).first;
+    Get.toNamed(Routes.details, arguments: recipe);
   }
 }

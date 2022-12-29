@@ -6,7 +6,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: '>=2.18.6 <3.0.0'
 
 dependencies:
   flutter:
@@ -15,7 +15,7 @@ dependencies:
   dio: ^4.0.0
   sqflite: ^2.0.0+3
   path_provider: ^2.0.2
-  get: ^4.1.4
+  flutter_bloc: ^8.1.1
   get_storage: ^2.0.3
   flutter_svg: ^0.22.0
   cached_network_image: ^3.0.0

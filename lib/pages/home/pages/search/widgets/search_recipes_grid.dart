@@ -52,7 +52,7 @@ class SearchRecipesGrid extends StatelessWidget {
                   title: recipe.title,
                   image: recipe.image,
                   width: itemWidth,
-                  onClick: () {},
+                  onClick: () => onClick(recipe),
                 ),
               );
             }).toList();

@@ -34,7 +34,7 @@ class SearchRecipeCard extends StatelessWidget {
         color: Colors.white,
       ),
       child: GestureDetector(
-        onTap: () => onClick,
+        onTap: () => onClick(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -46,11 +46,14 @@ class SearchRecipeCard extends StatelessWidget {
               child: Container(
                 width: width,
                 height: 120,
-                child: CachedNetworkImage(
-                  imageUrl: image ?? "",
-                  fit: BoxFit.cover,
-                  placeholder: (_, url) => const RecipePlaceholder(),
-                  errorWidget: (_, url, error) => const RecipePlaceholder(),
+                child: Hero(
+                  tag: title,
+                  child: CachedNetworkImage(
+                    imageUrl: image ?? "",
+                    fit: BoxFit.cover,
+                    placeholder: (_, url) => const RecipePlaceholder(),
+                    errorWidget: (_, url, error) => const RecipePlaceholder(),
+                  ),
                 ),
               ),
             ),
