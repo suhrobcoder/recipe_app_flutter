@@ -1,11 +1,19 @@
+import 'package:json_annotation/json_annotation.dart';
+
 import 'recipe.dart';
 
+part 'random_recipes_response.g.dart';
+
+@JsonSerializable()
 class RandomRecipesResponse {
   final List<Recipe> recipes;
 
-  RandomRecipesResponse(this.recipes);
+  RandomRecipesResponse({
+    required this.recipes,
+  });
 
-  RandomRecipesResponse.fromJson(Map<String, dynamic> json)
-      : recipes =
-            (json["recipes"] as List).map((e) => Recipe.fromJson(e)).toList();
+  factory RandomRecipesResponse.fromJson(Map<String, dynamic> json) =>
+      _$RandomRecipesResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RandomRecipesResponseToJson(this);
 }

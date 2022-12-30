@@ -1,5 +1,10 @@
+import 'package:json_annotation/json_annotation.dart';
+
 import 'instruction.dart';
 
+part 'recipe.g.dart';
+
+@JsonSerializable()
 class Recipe {
   final int id;
   final String title;
@@ -13,58 +18,21 @@ class Recipe {
   final int servings;
   final List<Instruction> analyzedInstructions;
 
-  Recipe(
-      this.id,
-      this.title,
-      this.summary,
-      this.image,
-      this.vegetarian,
-      this.readyInMinutes,
-      this.instructions,
-      this.cuisines,
-      this.diets,
-      this.analyzedInstructions,
-      this.servings);
+  Recipe({
+    required this.id,
+    required this.title,
+    required this.summary,
+    this.image,
+    required this.vegetarian,
+    this.readyInMinutes,
+    this.instructions,
+    required this.cuisines,
+    required this.diets,
+    required this.servings,
+    required this.analyzedInstructions,
+  });
 
-  Recipe.fromJson(Map<String, dynamic> json)
-      : id = json["id"],
-        title = json["title"],
-        summary = json["summary"],
-        image = json["image"],
-        vegetarian = json["vegetarian"],
-        readyInMinutes = json["readyInMinutes"],
-        instructions = json["instructions"],
-        cuisines = (json["cuisines"] as List).map((e) => e as String).toList(),
-        diets = (json["diets"] as List).map((e) => e as String).toList(),
-        analyzedInstructions = (json["analyzedInstructions"] as List)
-            .map((e) => Instruction.fromJson(e))
-            .toList(),
-        servings = json["servings"];
+  factory Recipe.fromJson(Map<String, dynamic> json) => _$RecipeFromJson(json);
 
-  Map<String, dynamic> toMap() {
-    return {
-      "id": id,
-      "title": title,
-      "summary": summary,
-      "image": image,
-      "vegetarian": vegetarian,
-      "readyInMinutes": readyInMinutes,
-      "instructions": instructions,
-      "cuisines": cuisines.join("|"),
-      "diets": diets.join("|"),
-      "servings": servings,
-    };
-  }
-
-  Recipe.fromMap(Map<String, dynamic> map, this.analyzedInstructions)
-      : id = map["id"],
-        title = map["title"],
-        summary = map["summary"],
-        image = map["image"],
-        vegetarian = map["vegetarian"] == 1,
-        readyInMinutes = map["readyInMinutes"],
-        instructions = map["instructions"],
-        cuisines = (map["cuisines"] as String).split("|"),
-        diets = (map["diets"] as String).split("|"),
-        servings = map["servings"];
+  Map<String, dynamic> toJson() => _$RecipeToJson(this);
 }

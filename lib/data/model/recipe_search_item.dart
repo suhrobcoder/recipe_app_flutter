@@ -1,12 +1,21 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'recipe_search_item.g.dart';
+
+@JsonSerializable()
 class RecipeSearchItem {
   final int id;
   final String title;
   final String? image;
 
-  RecipeSearchItem(this.id, this.title, this.image);
+  RecipeSearchItem({
+    required this.id,
+    required this.title,
+    this.image,
+  });
 
-  RecipeSearchItem.fromJson(Map<String, dynamic> json)
-      : id = json["id"],
-        title = json["title"],
-        image = json["image"];
+  factory RecipeSearchItem.fromJson(Map<String, dynamic> json) =>
+      _$RecipeSearchItemFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RecipeSearchItemToJson(this);
 }

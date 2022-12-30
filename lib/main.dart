@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import 'package:recipe_app/di/init_get_it.dart';
 import 'package:recipe_app/pages/home/page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await configureDependencies();
+  await configureDependencies(environment: Environment.dev);
   runApp(const MyApp());
 }
 

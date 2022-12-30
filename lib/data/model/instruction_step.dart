@@ -1,41 +1,30 @@
+import 'package:json_annotation/json_annotation.dart';
+
 import 'equipment.dart';
 import 'ingredient.dart';
 
+part 'instruction_step.g.dart';
+
+@JsonSerializable()
 class InstructionStep {
   final int number;
   final String step;
   final List<Ingredient> ingredients;
   final List<Equipment> equipments;
 
-  InstructionStep(this.number, this.step, this.ingredients, this.equipments);
+  InstructionStep({
+    required this.number,
+    required this.step,
+    required this.ingredients,
+    required this.equipments,
+  });
 
-  InstructionStep.fromJson(Map<String, dynamic> json)
-      : number = json["number"],
-        step = json["step"],
-        ingredients = (json["ingredients"] as List)
-            .map((e) => Ingredient.fromJson(e))
-            .toList(),
-        equipments = (json["equipment"] as List)
-            .map((e) => Equipment.fromJson(e))
-            .toList();
+  factory InstructionStep.fromJson(Map<String, dynamic> json) =>
+      _$InstructionStepFromJson(json);
 
-  Map<String, dynamic> toMap(int recipeId) {
-    return {
-      "id": getId(recipeId),
-      "recipeId": recipeId,
-      "number": number,
-      "step": step,
-    };
-  }
-  
+  Map<String, dynamic> toJson() => _$InstructionStepToJson(this);
+
   int getId(int recipeId) {
     return recipeId * 100 + number;
   }
-
-  InstructionStep.fromMap(
-    Map<String, dynamic> map,
-    this.ingredients,
-    this.equipments,
-  )   : number = map["number"],
-        step = map["step"];
 }

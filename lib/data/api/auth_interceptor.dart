@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 
-class AuthInterceptors extends Interceptor {
+@singleton
+@Named("AuthInterceptor")
+class AuthInterceptor extends Interceptor {
   final String apiKey = "fecbc99e62c542b99f8e9f2532bf959d";
 
   @override

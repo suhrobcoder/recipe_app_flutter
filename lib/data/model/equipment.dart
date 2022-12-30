@@ -1,25 +1,21 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'equipment.g.dart';
+
+@JsonSerializable()
 class Equipment {
   final int id;
   final String name;
   final String? image;
 
-  Equipment(this.id, this.name, this.image);
+  Equipment({
+    required this.id,
+    required this.name,
+    this.image,
+  });
 
-  Equipment.fromJson(Map<String, dynamic> json)
-      : id = json["id"],
-        name = json["name"],
-        image = json["image"];
+  factory Equipment.fromJson(Map<String, dynamic> json) =>
+      _$EquipmentFromJson(json);
 
-  Map<String, dynamic> toMap() {
-    return {
-      "id": id,
-      "name": name,
-      "image": image,
-    };
-  }
-
-  Equipment.fromMap(Map<String, dynamic> map)
-      : id = map["id"],
-        name = map["name"],
-        image = map["image"];
+  Map<String, dynamic> toJson() => _$EquipmentToJson(this);
 }
