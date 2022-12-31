@@ -46,8 +46,8 @@ class _RecipeApi implements RecipeApi {
   @override
   Future<RecipeSearchResponse> searchRecipes({
     required query,
-    number = _defaultPage,
-    offset = 0,
+    required number,
+    required offset,
     cuisine,
     diet,
     intelorances,
@@ -93,7 +93,7 @@ class _RecipeApi implements RecipeApi {
 
   @override
   Future<RandomRecipesResponse> getRandomRecipes({
-    number = _recipesPageSize,
+    required number,
     tags,
     offset = 0,
   }) async {
@@ -126,7 +126,7 @@ class _RecipeApi implements RecipeApi {
   @override
   Future<List<RecipeSearchItem>> autoCompleteSearch({
     required query,
-    number = _autoCompleteSize,
+    required number,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{

@@ -8,10 +8,6 @@ import 'package:retrofit/retrofit.dart';
 
 part 'recipe_api.g.dart';
 
-const _recipesPageSize = 20;
-const _autoCompleteSize = 10;
-const _defaultPage = 1;
-
 @singleton
 @RestApi(baseUrl: 'https://api.spoonacular.com')
 abstract class RecipeApi {
@@ -26,8 +22,8 @@ abstract class RecipeApi {
   @GET('recipes/complexSearch')
   Future<RecipeSearchResponse> searchRecipes({
     @Query('query') required String query,
-    @Query('number') int number = _defaultPage,
-    @Query('offset') int offset = 0,
+    @Query('number') required int number,
+    @Query('offset') required int offset,
     @Query('cuisine') List<String>? cuisine,
     @Query('diet') String? diet,
     @Query('intelorances') List<String>? intelorances,
@@ -40,7 +36,7 @@ abstract class RecipeApi {
 
   @GET('recipes/random')
   Future<RandomRecipesResponse> getRandomRecipes({
-    @Query('number') int number = _recipesPageSize,
+    @Query('number') required int number,
     @Query('tags') List<String>? tags,
     @Query('offset') int offset = 0,
   });
@@ -48,6 +44,6 @@ abstract class RecipeApi {
   @GET('recipes/autocomplete')
   Future<List<RecipeSearchItem>> autoCompleteSearch({
     @Query('query') required String query,
-    @Query('number') int number = _autoCompleteSize,
+    @Query('number') required int number,
   });
 }
