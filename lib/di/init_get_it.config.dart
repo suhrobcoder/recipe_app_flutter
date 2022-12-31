@@ -10,10 +10,12 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:recipe_app/data/api/auth_interceptor.dart' as _i3;
 import 'package:recipe_app/data/api/recipe_api.dart' as _i5;
-import 'package:recipe_app/data/pref/app_config_pref.dart' as _i7;
-import 'package:recipe_app/data/pref/settings_pref.dart' as _i8;
-import 'package:recipe_app/di/app_module.dart' as _i9;
-import 'package:shared_preferences/shared_preferences.dart' as _i6;
+import 'package:recipe_app/data/database/dao/recipe_dao.dart' as _i9;
+import 'package:recipe_app/data/database/saved_recipes_database.dart' as _i6;
+import 'package:recipe_app/data/pref/app_config_pref.dart' as _i8;
+import 'package:recipe_app/data/pref/settings_pref.dart' as _i10;
+import 'package:recipe_app/di/app_module.dart' as _i11;
+import 'package:shared_preferences/shared_preferences.dart' as _i7;
 
 const String _dev = 'dev';
 const String _prod = 'prod';
@@ -47,16 +49,19 @@ extension GetItInjectableX on _i1.GetIt {
       registerFor: {_prod},
     );
     gh.singleton<_i5.RecipeApi>(_i5.RecipeApi(gh<_i4.Dio>()));
-    await gh.singletonAsync<_i6.SharedPreferences>(
+    gh.singleton<_i6.SavedRecipesDatabase>(_i6.SavedRecipesDatabase());
+    await gh.singletonAsync<_i7.SharedPreferences>(
       () => appModule.prefs,
       preResolve: true,
     );
-    gh.factory<_i7.AppConfigPref>(
-        () => _i7.AppConfigPref(gh<_i6.SharedPreferences>()));
-    gh.factory<_i8.SettingsPref>(
-        () => _i8.SettingsPref(gh<_i6.SharedPreferences>()));
+    gh.factory<_i8.AppConfigPref>(
+        () => _i8.AppConfigPref(gh<_i7.SharedPreferences>()));
+    gh.factory<_i9.RecipeDao>(
+        () => _i9.RecipeDao(gh<_i6.SavedRecipesDatabase>()));
+    gh.factory<_i10.SettingsPref>(
+        () => _i10.SettingsPref(gh<_i7.SharedPreferences>()));
     return this;
   }
 }
 
-class _$AppModule extends _i9.AppModule {}
+class _$AppModule extends _i11.AppModule {}

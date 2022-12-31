@@ -47,7 +47,7 @@ abstract class RecipeApi {
 
   @GET('recipes/autocomplete')
   Future<List<RecipeSearchItem>> autoCompleteSearch({
-    @Query('query') String query,
+    @Query('query') required String query,
     @Query('number') int number = _autoCompleteSize,
   });
 }
