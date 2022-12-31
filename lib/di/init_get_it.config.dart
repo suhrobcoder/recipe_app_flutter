@@ -17,7 +17,8 @@ import 'package:recipe_app/data/pref/settings_pref.dart' as _i12;
 import 'package:recipe_app/data/repository/recipe_repository.dart' as _i6;
 import 'package:recipe_app/data/repository/saved_recipes_repository.dart'
     as _i11;
-import 'package:recipe_app/di/app_module.dart' as _i13;
+import 'package:recipe_app/data/repository/setting_repository.dart' as _i13;
+import 'package:recipe_app/di/app_module.dart' as _i14;
 import 'package:shared_preferences/shared_preferences.dart' as _i8;
 
 const String _dev = 'dev';
@@ -67,8 +68,12 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i11.SavedRecipesRepository(gh<_i10.RecipeDao>()));
     gh.factory<_i12.SettingsPref>(
         () => _i12.SettingsPref(gh<_i8.SharedPreferences>()));
+    gh.factory<_i13.SettingsRepository>(() => _i13.SettingsRepository(
+          gh<_i9.AppConfigPref>(),
+          gh<_i12.SettingsPref>(),
+        ));
     return this;
   }
 }
 
-class _$AppModule extends _i13.AppModule {}
+class _$AppModule extends _i14.AppModule {}
