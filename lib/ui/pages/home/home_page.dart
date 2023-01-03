@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recipe_app/di/init_get_it.dart';
 import 'package:recipe_app/ui/pages/home/bloc/home_bloc.dart';
-import 'package:recipe_app/ui/pages/recipes/page.dart';
+import 'package:recipe_app/ui/pages/recipes/recipes_page.dart';
 import 'package:recipe_app/ui/pages/saved/page.dart';
 import 'package:recipe_app/ui/pages/search/page.dart';
 import 'package:recipe_app/ui/pages/settings/page.dart';
