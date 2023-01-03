@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:recipe_app/ui/pages/home/controller.dart';
-import 'package:recipe_app/ui/pages/pages/recipes/page.dart';
-import 'package:recipe_app/ui/pages/pages/saved/page.dart';
-import 'package:recipe_app/ui/pages/pages/search/page.dart';
-import 'package:recipe_app/ui/pages/pages/settings/page.dart';
+import 'package:recipe_app/di/init_get_it.dart';
+import 'package:recipe_app/ui/pages/home/bloc/home_bloc.dart';
+import 'package:recipe_app/ui/pages/recipes/page.dart';
+import 'package:recipe_app/ui/pages/saved/page.dart';
+import 'package:recipe_app/ui/pages/search/page.dart';
+import 'package:recipe_app/ui/pages/settings/page.dart';
 import 'package:recipe_app/ui/theme/color_theme.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,21 +14,19 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
-        var controller = Get.find<HomePageController>();
-        var selectedTab = controller.selectedTab.value;
-        return Scaffold(
-          appBar: homeContents[selectedTab].appBar,
-          bottomNavigationBar: Obx(
-            () => BottomNavigationBar(
+    return BlocProvider(
+      create: (context) => getIt<HomeBloc>(),
+      child: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: homeContents[state.selectedTab].appBar,
+            bottomNavigationBar: BottomNavigationBar(
               items: homeContents
                   .map(
                     (screen) => BottomNavigationBarItem(
                       icon: BottomNavIcon(
                         screen.icon,
-                        Get.find<HomePageController>().selectedTab.value ==
-                            homeContents.indexOf(screen),
+                        state.selectedTab == homeContents.indexOf(screen),
                       ),
                       label: screen.title,
                     ),
@@ -35,21 +34,21 @@ class HomePage extends StatelessWidget {
                   .toList(),
               showSelectedLabels: true,
               showUnselectedLabels: true,
-              currentIndex: selectedTab,
+              currentIndex: state.selectedTab,
               selectedItemColor: Colors.black,
               unselectedItemColor: gray500,
               selectedFontSize: 14,
               unselectedFontSize: 14,
               type: BottomNavigationBarType.fixed,
-              onTap: (index) => controller.selectedTab(index),
+              onTap: (index) => context.read<HomeBloc>().add(SelectTab(index)),
             ),
-          ),
-          body: IndexedStack(
-            index: selectedTab,
-            children: homeContents.map((screen) => screen.content).toList(),
-          ),
-        );
-      },
+            body: IndexedStack(
+              index: state.selectedTab,
+              children: homeContents.map((screen) => screen.content).toList(),
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -80,9 +79,10 @@ class HomeBottomNav {
 }
 
 final homeContents = [
-  HomeBottomNav("Recipes", "ic_recipe.svg", RecipesPage(), RecipesAppBar()),
-  HomeBottomNav("Search", "ic_search.svg", SearchPage(), SearchAppBar()),
-  HomeBottomNav("Saved", "ic_bookmark.svg", SavedPage(), SavedAppBar()),
   HomeBottomNav(
-      "Settings", "ic_settings.svg", SettingsPage(), SettingsAppBar()),
+      "Recipes", "ic_recipe.svg", const RecipesPage(), RecipesAppBar()),
+  HomeBottomNav("Search", "ic_search.svg", const SearchPage(), SearchAppBar()),
+  HomeBottomNav("Saved", "ic_bookmark.svg", const SavedPage(), SavedAppBar()),
+  HomeBottomNav(
+      "Settings", "ic_settings.svg", const SettingsPage(), SettingsAppBar()),
 ];
