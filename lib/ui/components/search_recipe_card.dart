@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe_app/ui/pages/pages/recipes/widgets/recipe_card.dart';
+import 'package:recipe_app/ui/components/recipe_card.dart';
 import 'package:recipe_app/ui/theme/constants.dart';
 
 class SearchRecipeCard extends StatelessWidget {

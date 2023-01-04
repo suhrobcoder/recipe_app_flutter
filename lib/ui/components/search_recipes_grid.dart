@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/data/model/recipe_search_item.dart';
-import 'package:recipe_app/ui/pages/pages/search/widgets/search_recipe_card.dart';
+import 'package:recipe_app/ui/components/search_recipe_card.dart';
 import 'package:recipe_app/ui/theme/constants.dart';
 
 class SearchRecipesGrid extends StatelessWidget {

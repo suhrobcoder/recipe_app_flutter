@@ -90,9 +90,12 @@ class RecipeDao extends DatabaseAccessor<SavedRecipesDatabase>
         .toList());
   }
 
-  Future<Recipe> getRecipeById(int id) async {
-    final recipe =
-        await (select(recipes)..where((tbl) => tbl.id.equals(id))).getSingle();
+  Future<Recipe?> getRecipeById(int id) async {
+    final recipe = await (select(recipes)..where((tbl) => tbl.id.equals(id)))
+        .getSingleOrNull();
+    if (recipe == null) {
+      return null;
+    }
     final instructions = await (select(instructionSteps)
           ..where((tbl) => tbl.recipeId.equals(id)))
         .get();

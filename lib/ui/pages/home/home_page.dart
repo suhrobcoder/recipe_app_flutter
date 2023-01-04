@@ -4,9 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recipe_app/di/init_get_it.dart';
 import 'package:recipe_app/ui/pages/home/bloc/home_bloc.dart';
 import 'package:recipe_app/ui/pages/recipes/recipes_page.dart';
-import 'package:recipe_app/ui/pages/saved/page.dart';
-import 'package:recipe_app/ui/pages/search/page.dart';
-import 'package:recipe_app/ui/pages/settings/page.dart';
+import 'package:recipe_app/ui/pages/saved/saved_page.dart';
+import 'package:recipe_app/ui/pages/search/search_page.dart';
+import 'package:recipe_app/ui/pages/settings/settings_page.dart';
 import 'package:recipe_app/ui/theme/color_theme.dart';
 
 class HomePage extends StatelessWidget {

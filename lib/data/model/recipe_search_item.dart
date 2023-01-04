@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:recipe_app/data/model/recipe.dart';
 
 part 'recipe_search_item.g.dart';
 
@@ -18,4 +19,17 @@ class RecipeSearchItem {
       _$RecipeSearchItemFromJson(json);
 
   Map<String, dynamic> toJson() => _$RecipeSearchItemToJson(this);
+
+  Recipe toRecipe() {
+    return Recipe(
+      id: id,
+      title: title,
+      summary: "",
+      vegetarian: false,
+      cuisines: [],
+      diets: [],
+      servings: -1,
+      analyzedInstructions: [],
+    );
+  }
 }

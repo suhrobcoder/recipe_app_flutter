@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/di/init_get_it.dart';
 import 'package:recipe_app/ui/components/recipe_card.dart';
-import 'package:recipe_app/ui/pages/details/page.dart';
+import 'package:recipe_app/ui/pages/details/details_page.dart';
 import 'package:recipe_app/ui/pages/recipes/bloc/recipes_bloc.dart';
 import 'package:recipe_app/util/ui_state.dart';
 

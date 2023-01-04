@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 const _darkThemeKey = "dark_theme";
 const _firstRunKey = "first_run";
 
-@injectable
+@singleton
 class AppConfigPref {
   final SharedPreferences _sharedPreferences;
 

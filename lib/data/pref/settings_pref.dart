@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 const _dietsKey = "diets";
 const _cuisinesKey = "cuisines";
 
-@injectable
+@singleton
 class SettingsPref {
   final SharedPreferences _sharedPreferences;
 
