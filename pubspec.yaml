@@ -11,24 +11,24 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
   dio: ^4.0.6
   dio_logging_interceptor: ^1.0.1
   retrofit: ^3.3.1
   json_annotation: ^4.7.0
-  drift: ^2.4.0
+  drift: ^2.4.2
   sqlite3_flutter_libs: ^0.5.12
   path_provider: ^2.0.11
   path: ^1.8.2
   flutter_bloc: ^8.1.1
   shared_preferences: ^2.0.15
-  flutter_svg: ^0.22.0
-  cached_network_image: ^3.0.0
-  settings_ui: ^1.0.0
+  flutter_svg: ^1.1.6
+  cached_network_image: ^3.2.3
+  settings_ui: ^2.0.2
   get_it: ^7.2.0
   injectable: ^2.1.0
   dartz: ^0.10.1
   equatable: ^2.0.5
+  sliding_up_panel: ^2.0.0+1
 
 dev_dependencies:
   flutter_test:
@@ -38,7 +38,7 @@ dev_dependencies:
   injectable_generator: ^2.1.3
   json_serializable: ^6.5.4
   retrofit_generator: ^4.2.0
-  drift_dev: ^2.4.0
+  drift_dev: ^2.4.1
 
 flutter:
   uses-material-design: true

@@ -3,6 +3,7 @@ part of 'search_bloc.dart';
 
 class SearchState extends Equatable {
   final TextEditingController searchController;
+  final PanelController panelController;
   final List<RecipeSearchItem> results;
   final String mealType;
   final String diet;
@@ -11,6 +12,7 @@ class SearchState extends Equatable {
 
   const SearchState({
     required this.searchController,
+    required this.panelController,
     required this.results,
     required this.mealType,
     required this.diet,
@@ -21,6 +23,7 @@ class SearchState extends Equatable {
   factory SearchState.initial() {
     return SearchState(
       searchController: TextEditingController(),
+      panelController: PanelController(),
       results: const [],
       mealType: "",
       diet: "",
@@ -38,6 +41,7 @@ class SearchState extends Equatable {
   }) {
     return SearchState(
       searchController: searchController,
+      panelController: panelController,
       results: results ?? this.results,
       mealType: mealType ?? this.mealType,
       diet: diet ?? this.diet,

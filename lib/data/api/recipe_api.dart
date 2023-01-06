@@ -9,7 +9,7 @@ import 'package:retrofit/retrofit.dart';
 part 'recipe_api.g.dart';
 
 @singleton
-@RestApi(baseUrl: 'https://api.spoonacular.com')
+@RestApi(baseUrl: 'https://api.spoonacular.com/')
 abstract class RecipeApi {
   @factoryMethod
   factory RecipeApi(Dio dio) = _RecipeApi;

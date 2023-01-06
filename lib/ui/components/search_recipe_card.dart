@@ -43,7 +43,7 @@ class SearchRecipeCard extends StatelessWidget {
                 topLeft: Radius.circular(16.0),
                 topRight: Radius.circular(16.0),
               ),
-              child: Container(
+              child: SizedBox(
                 width: width,
                 height: 120,
                 child: Hero(

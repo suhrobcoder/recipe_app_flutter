@@ -13,7 +13,7 @@ class _RecipeApi implements RecipeApi {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://api.spoonacular.com';
+    baseUrl ??= 'https://api.spoonacular.com/';
   }
 
   final Dio _dio;

@@ -37,23 +37,28 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
     on<SelectItem>((event, emit) {
       if (state.step == 1) {
         if (state.selectedCuisines.contains(event.item)) {
-          emit(state.copyWith(
-              selectedCuisines: state.selectedCuisines..remove(event.item)));
+          final result = state.selectedCuisines
+              .where((element) => element != event.item)
+              .toList();
+          emit(state.copyWith(selectedCuisines: result));
         } else {
           emit(state.copyWith(
-              selectedCuisines: state.selectedCuisines..add(event.item)));
+              selectedCuisines: [...state.selectedCuisines, event.item]));
         }
       } else if (state.step == 2) {
         if (state.selectedDiets.contains(event.item)) {
-          emit(state.copyWith(
-              selectedDiets: state.selectedDiets..remove(event.item)));
+          final result = state.selectedDiets
+              .where((element) => element != event.item)
+              .toList();
+          emit(state.copyWith(selectedDiets: result));
         } else {
-          emit(state.copyWith(
-              selectedDiets: state.selectedDiets..add(event.item)));
+          emit(state
+              .copyWith(selectedDiets: [...state.selectedDiets, event.item]));
         }
       }
     });
-    on<_NavigateToHomePage>((event, emit) {
+    on<_NavigateToHomePage>((event, emit) async {
+      await settingsRepository.setFirstRunFalse();
       emit(state.copyWith(navigateToHomePage: true));
     });
   }

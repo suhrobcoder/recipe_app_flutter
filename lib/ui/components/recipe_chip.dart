@@ -26,7 +26,7 @@ class RecipeChip extends StatelessWidget {
             borderRadius: BorderRadius.circular(32),
           ),
           child: Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: defaultPadding,
               vertical: defaultPadding / 2,
             ),

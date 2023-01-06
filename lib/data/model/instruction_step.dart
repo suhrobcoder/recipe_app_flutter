@@ -9,7 +9,9 @@ part 'instruction_step.g.dart';
 class InstructionStep {
   final int number;
   final String step;
+  @JsonKey(defaultValue: <Ingredient>[])
   final List<Ingredient> ingredients;
+  @JsonKey(defaultValue: <Equipment>[])
   final List<Equipment> equipments;
 
   InstructionStep({

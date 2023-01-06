@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:recipe_app/data/repository/setting_repository.dart';
 import 'package:recipe_app/di/init_get_it.dart';
-import 'package:recipe_app/ui/pages/home/page.dart';
+import 'package:recipe_app/ui/pages/home/home_page.dart';
 import 'package:recipe_app/ui/pages/onboarding/onboarding_page.dart';
 import 'package:recipe_app/ui/theme/app_theme.dart';
 

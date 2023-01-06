@@ -20,7 +20,7 @@ abstract class AppModule {
           validateStatus: ((status) => true),
         ),
       )..interceptors.addAll([
-          DioLoggingInterceptor(level: Level.body, compact: false),
+          DioLoggingInterceptor(level: Level.basic, compact: false),
           authInterceptor,
         ]);
 

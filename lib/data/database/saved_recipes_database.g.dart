@@ -3,6 +3,188 @@
 part of 'saved_recipes_database.dart';
 
 // ignore_for_file: type=lint
+class $RecipesTable extends Recipes with TableInfo<$RecipesTable, RecipeTable> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $RecipesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+      'title', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _summaryMeta =
+      const VerificationMeta('summary');
+  @override
+  late final GeneratedColumn<String> summary = GeneratedColumn<String>(
+      'summary', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _imageMeta = const VerificationMeta('image');
+  @override
+  late final GeneratedColumn<String> image = GeneratedColumn<String>(
+      'image', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _vegetarianMeta =
+      const VerificationMeta('vegetarian');
+  @override
+  late final GeneratedColumn<bool> vegetarian =
+      GeneratedColumn<bool>('vegetarian', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("vegetarian" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _readyInMinutesMeta =
+      const VerificationMeta('readyInMinutes');
+  @override
+  late final GeneratedColumn<int> readyInMinutes = GeneratedColumn<int>(
+      'ready_in_minutes', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _instructionsMeta =
+      const VerificationMeta('instructions');
+  @override
+  late final GeneratedColumn<String> instructions = GeneratedColumn<String>(
+      'instructions', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _cuisinesMeta =
+      const VerificationMeta('cuisines');
+  @override
+  late final GeneratedColumnWithTypeConverter<List<String>, String> cuisines =
+      GeneratedColumn<String>('cuisines', aliasedName, false,
+              type: DriftSqlType.string, requiredDuringInsert: true)
+          .withConverter<List<String>>($RecipesTable.$convertercuisines);
+  static const VerificationMeta _dietsMeta = const VerificationMeta('diets');
+  @override
+  late final GeneratedColumnWithTypeConverter<List<String>, String> diets =
+      GeneratedColumn<String>('diets', aliasedName, false,
+              type: DriftSqlType.string, requiredDuringInsert: true)
+          .withConverter<List<String>>($RecipesTable.$converterdiets);
+  static const VerificationMeta _servingsMeta =
+      const VerificationMeta('servings');
+  @override
+  late final GeneratedColumn<int> servings = GeneratedColumn<int>(
+      'servings', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        title,
+        summary,
+        image,
+        vegetarian,
+        readyInMinutes,
+        instructions,
+        cuisines,
+        diets,
+        servings
+      ];
+  @override
+  String get aliasedName => _alias ?? 'recipes';
+  @override
+  String get actualTableName => 'recipes';
+  @override
+  VerificationContext validateIntegrity(Insertable<RecipeTable> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('summary')) {
+      context.handle(_summaryMeta,
+          summary.isAcceptableOrUnknown(data['summary']!, _summaryMeta));
+    } else if (isInserting) {
+      context.missing(_summaryMeta);
+    }
+    if (data.containsKey('image')) {
+      context.handle(
+          _imageMeta, image.isAcceptableOrUnknown(data['image']!, _imageMeta));
+    }
+    if (data.containsKey('vegetarian')) {
+      context.handle(
+          _vegetarianMeta,
+          vegetarian.isAcceptableOrUnknown(
+              data['vegetarian']!, _vegetarianMeta));
+    } else if (isInserting) {
+      context.missing(_vegetarianMeta);
+    }
+    if (data.containsKey('ready_in_minutes')) {
+      context.handle(
+          _readyInMinutesMeta,
+          readyInMinutes.isAcceptableOrUnknown(
+              data['ready_in_minutes']!, _readyInMinutesMeta));
+    }
+    if (data.containsKey('instructions')) {
+      context.handle(
+          _instructionsMeta,
+          instructions.isAcceptableOrUnknown(
+              data['instructions']!, _instructionsMeta));
+    }
+    context.handle(_cuisinesMeta, const VerificationResult.success());
+    context.handle(_dietsMeta, const VerificationResult.success());
+    if (data.containsKey('servings')) {
+      context.handle(_servingsMeta,
+          servings.isAcceptableOrUnknown(data['servings']!, _servingsMeta));
+    } else if (isInserting) {
+      context.missing(_servingsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  RecipeTable map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return RecipeTable(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      title: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+      summary: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}summary'])!,
+      image: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}image']),
+      vegetarian: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}vegetarian'])!,
+      readyInMinutes: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}ready_in_minutes']),
+      instructions: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}instructions']),
+      cuisines: $RecipesTable.$convertercuisines.fromSql(attachedDatabase
+          .typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}cuisines'])!),
+      diets: $RecipesTable.$converterdiets.fromSql(attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}diets'])!),
+      servings: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}servings'])!,
+    );
+  }
+
+  @override
+  $RecipesTable createAlias(String alias) {
+    return $RecipesTable(attachedDatabase, alias);
+  }
+
+  static TypeConverter<List<String>, String> $convertercuisines =
+      const StringListConverter();
+  static TypeConverter<List<String>, String> $converterdiets =
+      const StringListConverter();
+}
+
 class RecipeTable extends DataClass implements Insertable<RecipeTable> {
   final int id;
   final String title;
@@ -314,143 +496,50 @@ class RecipesCompanion extends UpdateCompanion<RecipeTable> {
   }
 }
 
-class $RecipesTable extends Recipes with TableInfo<$RecipesTable, RecipeTable> {
+class $EquipmentsTable extends Equipments
+    with TableInfo<$EquipmentsTable, EquipmentTable> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $RecipesTable(this.attachedDatabase, [this._alias]);
+  $EquipmentsTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
-  late final GeneratedColumn<String> title = GeneratedColumn<String>(
-      'title', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _summaryMeta =
-      const VerificationMeta('summary');
-  @override
-  late final GeneratedColumn<String> summary = GeneratedColumn<String>(
-      'summary', aliasedName, false,
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _imageMeta = const VerificationMeta('image');
   @override
   late final GeneratedColumn<String> image = GeneratedColumn<String>(
       'image', aliasedName, true,
       type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _vegetarianMeta =
-      const VerificationMeta('vegetarian');
   @override
-  late final GeneratedColumn<bool> vegetarian =
-      GeneratedColumn<bool>('vegetarian', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("vegetarian" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
-  static const VerificationMeta _readyInMinutesMeta =
-      const VerificationMeta('readyInMinutes');
+  List<GeneratedColumn> get $columns => [id, name, image];
   @override
-  late final GeneratedColumn<int> readyInMinutes = GeneratedColumn<int>(
-      'ready_in_minutes', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _instructionsMeta =
-      const VerificationMeta('instructions');
+  String get aliasedName => _alias ?? 'equipments';
   @override
-  late final GeneratedColumn<String> instructions = GeneratedColumn<String>(
-      'instructions', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _cuisinesMeta =
-      const VerificationMeta('cuisines');
+  String get actualTableName => 'equipments';
   @override
-  late final GeneratedColumnWithTypeConverter<List<String>, String> cuisines =
-      GeneratedColumn<String>('cuisines', aliasedName, false,
-              type: DriftSqlType.string, requiredDuringInsert: true)
-          .withConverter<List<String>>($RecipesTable.$convertercuisines);
-  static const VerificationMeta _dietsMeta = const VerificationMeta('diets');
-  @override
-  late final GeneratedColumnWithTypeConverter<List<String>, String> diets =
-      GeneratedColumn<String>('diets', aliasedName, false,
-              type: DriftSqlType.string, requiredDuringInsert: true)
-          .withConverter<List<String>>($RecipesTable.$converterdiets);
-  static const VerificationMeta _servingsMeta =
-      const VerificationMeta('servings');
-  @override
-  late final GeneratedColumn<int> servings = GeneratedColumn<int>(
-      'servings', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        title,
-        summary,
-        image,
-        vegetarian,
-        readyInMinutes,
-        instructions,
-        cuisines,
-        diets,
-        servings
-      ];
-  @override
-  String get aliasedName => _alias ?? 'recipes';
-  @override
-  String get actualTableName => 'recipes';
-  @override
-  VerificationContext validateIntegrity(Insertable<RecipeTable> instance,
+  VerificationContext validateIntegrity(Insertable<EquipmentTable> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('title')) {
+    if (data.containsKey('name')) {
       context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
-      context.missing(_titleMeta);
-    }
-    if (data.containsKey('summary')) {
-      context.handle(_summaryMeta,
-          summary.isAcceptableOrUnknown(data['summary']!, _summaryMeta));
-    } else if (isInserting) {
-      context.missing(_summaryMeta);
+      context.missing(_nameMeta);
     }
     if (data.containsKey('image')) {
       context.handle(
           _imageMeta, image.isAcceptableOrUnknown(data['image']!, _imageMeta));
-    }
-    if (data.containsKey('vegetarian')) {
-      context.handle(
-          _vegetarianMeta,
-          vegetarian.isAcceptableOrUnknown(
-              data['vegetarian']!, _vegetarianMeta));
-    } else if (isInserting) {
-      context.missing(_vegetarianMeta);
-    }
-    if (data.containsKey('ready_in_minutes')) {
-      context.handle(
-          _readyInMinutesMeta,
-          readyInMinutes.isAcceptableOrUnknown(
-              data['ready_in_minutes']!, _readyInMinutesMeta));
-    }
-    if (data.containsKey('instructions')) {
-      context.handle(
-          _instructionsMeta,
-          instructions.isAcceptableOrUnknown(
-              data['instructions']!, _instructionsMeta));
-    }
-    context.handle(_cuisinesMeta, const VerificationResult.success());
-    context.handle(_dietsMeta, const VerificationResult.success());
-    if (data.containsKey('servings')) {
-      context.handle(_servingsMeta,
-          servings.isAcceptableOrUnknown(data['servings']!, _servingsMeta));
-    } else if (isInserting) {
-      context.missing(_servingsMeta);
     }
     return context;
   }
@@ -458,42 +547,22 @@ class $RecipesTable extends Recipes with TableInfo<$RecipesTable, RecipeTable> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  RecipeTable map(Map<String, dynamic> data, {String? tablePrefix}) {
+  EquipmentTable map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return RecipeTable(
+    return EquipmentTable(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      title: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
-      summary: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}summary'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
       image: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}image']),
-      vegetarian: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}vegetarian'])!,
-      readyInMinutes: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}ready_in_minutes']),
-      instructions: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}instructions']),
-      cuisines: $RecipesTable.$convertercuisines.fromSql(attachedDatabase
-          .typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}cuisines'])!),
-      diets: $RecipesTable.$converterdiets.fromSql(attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}diets'])!),
-      servings: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}servings'])!,
     );
   }
 
   @override
-  $RecipesTable createAlias(String alias) {
-    return $RecipesTable(attachedDatabase, alias);
+  $EquipmentsTable createAlias(String alias) {
+    return $EquipmentsTable(attachedDatabase, alias);
   }
-
-  static TypeConverter<List<String>, String> $convertercuisines =
-      const StringListConverter();
-  static TypeConverter<List<String>, String> $converterdiets =
-      const StringListConverter();
 }
 
 class EquipmentTable extends DataClass implements Insertable<EquipmentTable> {
@@ -631,12 +700,12 @@ class EquipmentsCompanion extends UpdateCompanion<EquipmentTable> {
   }
 }
 
-class $EquipmentsTable extends Equipments
-    with TableInfo<$EquipmentsTable, EquipmentTable> {
+class $IngredientsTable extends Ingredients
+    with TableInfo<$IngredientsTable, IngredientTable> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $EquipmentsTable(this.attachedDatabase, [this._alias]);
+  $IngredientsTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -655,11 +724,11 @@ class $EquipmentsTable extends Equipments
   @override
   List<GeneratedColumn> get $columns => [id, name, image];
   @override
-  String get aliasedName => _alias ?? 'equipments';
+  String get aliasedName => _alias ?? 'ingredients';
   @override
-  String get actualTableName => 'equipments';
+  String get actualTableName => 'ingredients';
   @override
-  VerificationContext validateIntegrity(Insertable<EquipmentTable> instance,
+  VerificationContext validateIntegrity(Insertable<IngredientTable> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -682,9 +751,9 @@ class $EquipmentsTable extends Equipments
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  EquipmentTable map(Map<String, dynamic> data, {String? tablePrefix}) {
+  IngredientTable map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return EquipmentTable(
+    return IngredientTable(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       name: attachedDatabase.typeMapping
@@ -695,8 +764,8 @@ class $EquipmentsTable extends Equipments
   }
 
   @override
-  $EquipmentsTable createAlias(String alias) {
-    return $EquipmentsTable(attachedDatabase, alias);
+  $IngredientsTable createAlias(String alias) {
+    return $IngredientsTable(attachedDatabase, alias);
   }
 }
 
@@ -835,50 +904,65 @@ class IngredientsCompanion extends UpdateCompanion<IngredientTable> {
   }
 }
 
-class $IngredientsTable extends Ingredients
-    with TableInfo<$IngredientsTable, IngredientTable> {
+class $InstructionStepsTable extends InstructionSteps
+    with TableInfo<$InstructionStepsTable, InstructionStepTable> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $IngredientsTable(this.attachedDatabase, [this._alias]);
+  $InstructionStepsTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  static const VerificationMeta _recipeIdMeta =
+      const VerificationMeta('recipeId');
   @override
-  late final GeneratedColumn<String> name = GeneratedColumn<String>(
-      'name', aliasedName, false,
+  late final GeneratedColumn<int> recipeId = GeneratedColumn<int>(
+      'recipe_id', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _numberMeta = const VerificationMeta('number');
+  @override
+  late final GeneratedColumn<int> number = GeneratedColumn<int>(
+      'number', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _stepMeta = const VerificationMeta('step');
+  @override
+  late final GeneratedColumn<String> step = GeneratedColumn<String>(
+      'step', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _imageMeta = const VerificationMeta('image');
   @override
-  late final GeneratedColumn<String> image = GeneratedColumn<String>(
-      'image', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+  List<GeneratedColumn> get $columns => [id, recipeId, number, step];
   @override
-  List<GeneratedColumn> get $columns => [id, name, image];
+  String get aliasedName => _alias ?? 'instruction_steps';
   @override
-  String get aliasedName => _alias ?? 'ingredients';
+  String get actualTableName => 'instruction_steps';
   @override
-  String get actualTableName => 'ingredients';
-  @override
-  VerificationContext validateIntegrity(Insertable<IngredientTable> instance,
+  VerificationContext validateIntegrity(
+      Insertable<InstructionStepTable> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    if (data.containsKey('recipe_id')) {
+      context.handle(_recipeIdMeta,
+          recipeId.isAcceptableOrUnknown(data['recipe_id']!, _recipeIdMeta));
     } else if (isInserting) {
-      context.missing(_nameMeta);
+      context.missing(_recipeIdMeta);
     }
-    if (data.containsKey('image')) {
+    if (data.containsKey('number')) {
+      context.handle(_numberMeta,
+          number.isAcceptableOrUnknown(data['number']!, _numberMeta));
+    } else if (isInserting) {
+      context.missing(_numberMeta);
+    }
+    if (data.containsKey('step')) {
       context.handle(
-          _imageMeta, image.isAcceptableOrUnknown(data['image']!, _imageMeta));
+          _stepMeta, step.isAcceptableOrUnknown(data['step']!, _stepMeta));
+    } else if (isInserting) {
+      context.missing(_stepMeta);
     }
     return context;
   }
@@ -886,21 +970,23 @@ class $IngredientsTable extends Ingredients
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  IngredientTable map(Map<String, dynamic> data, {String? tablePrefix}) {
+  InstructionStepTable map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return IngredientTable(
+    return InstructionStepTable(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      name: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
-      image: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}image']),
+      recipeId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}recipe_id'])!,
+      number: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}number'])!,
+      step: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}step'])!,
     );
   }
 
   @override
-  $IngredientsTable createAlias(String alias) {
-    return $IngredientsTable(attachedDatabase, alias);
+  $InstructionStepsTable createAlias(String alias) {
+    return $InstructionStepsTable(attachedDatabase, alias);
   }
 }
 
@@ -1062,89 +1148,81 @@ class InstructionStepsCompanion extends UpdateCompanion<InstructionStepTable> {
   }
 }
 
-class $InstructionStepsTable extends InstructionSteps
-    with TableInfo<$InstructionStepsTable, InstructionStepTable> {
+class $InstructionStepEquipmentRelationTable
+    extends InstructionStepEquipmentRelation
+    with
+        TableInfo<$InstructionStepEquipmentRelationTable,
+            InstructionStepEquipmentRelationData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $InstructionStepsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  $InstructionStepEquipmentRelationTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _instructionStepIdMeta =
+      const VerificationMeta('instructionStepId');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _recipeIdMeta =
-      const VerificationMeta('recipeId');
+  late final GeneratedColumn<int> instructionStepId = GeneratedColumn<int>(
+      'instruction_step_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES instruction_steps (id)'));
+  static const VerificationMeta _equipmentIdMeta =
+      const VerificationMeta('equipmentId');
   @override
-  late final GeneratedColumn<int> recipeId = GeneratedColumn<int>(
-      'recipe_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _numberMeta = const VerificationMeta('number');
+  late final GeneratedColumn<int> equipmentId = GeneratedColumn<int>(
+      'equipment_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES equipments (id)'));
   @override
-  late final GeneratedColumn<int> number = GeneratedColumn<int>(
-      'number', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _stepMeta = const VerificationMeta('step');
+  List<GeneratedColumn> get $columns => [instructionStepId, equipmentId];
   @override
-  late final GeneratedColumn<String> step = GeneratedColumn<String>(
-      'step', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+  String get aliasedName => _alias ?? 'instruction_step_equipment_relation';
   @override
-  List<GeneratedColumn> get $columns => [id, recipeId, number, step];
-  @override
-  String get aliasedName => _alias ?? 'instruction_steps';
-  @override
-  String get actualTableName => 'instruction_steps';
+  String get actualTableName => 'instruction_step_equipment_relation';
   @override
   VerificationContext validateIntegrity(
-      Insertable<InstructionStepTable> instance,
+      Insertable<InstructionStepEquipmentRelationData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('recipe_id')) {
-      context.handle(_recipeIdMeta,
-          recipeId.isAcceptableOrUnknown(data['recipe_id']!, _recipeIdMeta));
-    } else if (isInserting) {
-      context.missing(_recipeIdMeta);
-    }
-    if (data.containsKey('number')) {
-      context.handle(_numberMeta,
-          number.isAcceptableOrUnknown(data['number']!, _numberMeta));
-    } else if (isInserting) {
-      context.missing(_numberMeta);
-    }
-    if (data.containsKey('step')) {
+    if (data.containsKey('instruction_step_id')) {
       context.handle(
-          _stepMeta, step.isAcceptableOrUnknown(data['step']!, _stepMeta));
+          _instructionStepIdMeta,
+          instructionStepId.isAcceptableOrUnknown(
+              data['instruction_step_id']!, _instructionStepIdMeta));
     } else if (isInserting) {
-      context.missing(_stepMeta);
+      context.missing(_instructionStepIdMeta);
+    }
+    if (data.containsKey('equipment_id')) {
+      context.handle(
+          _equipmentIdMeta,
+          equipmentId.isAcceptableOrUnknown(
+              data['equipment_id']!, _equipmentIdMeta));
+    } else if (isInserting) {
+      context.missing(_equipmentIdMeta);
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => const {};
   @override
-  InstructionStepTable map(Map<String, dynamic> data, {String? tablePrefix}) {
+  InstructionStepEquipmentRelationData map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return InstructionStepTable(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      recipeId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}recipe_id'])!,
-      number: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}number'])!,
-      step: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}step'])!,
+    return InstructionStepEquipmentRelationData(
+      instructionStepId: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}instruction_step_id'])!,
+      equipmentId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}equipment_id'])!,
     );
   }
 
   @override
-  $InstructionStepsTable createAlias(String alias) {
-    return $InstructionStepsTable(attachedDatabase, alias);
+  $InstructionStepEquipmentRelationTable createAlias(String alias) {
+    return $InstructionStepEquipmentRelationTable(attachedDatabase, alias);
   }
 }
 
@@ -1265,15 +1343,15 @@ class InstructionStepEquipmentRelationCompanion
   }
 }
 
-class $InstructionStepEquipmentRelationTable
-    extends InstructionStepEquipmentRelation
+class $InstructionStepIngredientRelationTable
+    extends InstructionStepIngredientRelation
     with
-        TableInfo<$InstructionStepEquipmentRelationTable,
-            InstructionStepEquipmentRelationData> {
+        TableInfo<$InstructionStepIngredientRelationTable,
+            InstructionStepIngredientRelationData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $InstructionStepEquipmentRelationTable(this.attachedDatabase, [this._alias]);
+  $InstructionStepIngredientRelationTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _instructionStepIdMeta =
       const VerificationMeta('instructionStepId');
   @override
@@ -1283,24 +1361,24 @@ class $InstructionStepEquipmentRelationTable
       requiredDuringInsert: true,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'REFERENCES instruction_steps (id)'));
-  static const VerificationMeta _equipmentIdMeta =
-      const VerificationMeta('equipmentId');
+  static const VerificationMeta _ingredientIdMeta =
+      const VerificationMeta('ingredientId');
   @override
-  late final GeneratedColumn<int> equipmentId = GeneratedColumn<int>(
-      'equipment_id', aliasedName, false,
+  late final GeneratedColumn<int> ingredientId = GeneratedColumn<int>(
+      'ingredient_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
       defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES equipments (id)'));
+          GeneratedColumn.constraintIsAlways('REFERENCES ingredients (id)'));
   @override
-  List<GeneratedColumn> get $columns => [instructionStepId, equipmentId];
+  List<GeneratedColumn> get $columns => [instructionStepId, ingredientId];
   @override
-  String get aliasedName => _alias ?? 'instruction_step_equipment_relation';
+  String get aliasedName => _alias ?? 'instruction_step_ingredient_relation';
   @override
-  String get actualTableName => 'instruction_step_equipment_relation';
+  String get actualTableName => 'instruction_step_ingredient_relation';
   @override
   VerificationContext validateIntegrity(
-      Insertable<InstructionStepEquipmentRelationData> instance,
+      Insertable<InstructionStepIngredientRelationData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -1312,13 +1390,13 @@ class $InstructionStepEquipmentRelationTable
     } else if (isInserting) {
       context.missing(_instructionStepIdMeta);
     }
-    if (data.containsKey('equipment_id')) {
+    if (data.containsKey('ingredient_id')) {
       context.handle(
-          _equipmentIdMeta,
-          equipmentId.isAcceptableOrUnknown(
-              data['equipment_id']!, _equipmentIdMeta));
+          _ingredientIdMeta,
+          ingredientId.isAcceptableOrUnknown(
+              data['ingredient_id']!, _ingredientIdMeta));
     } else if (isInserting) {
-      context.missing(_equipmentIdMeta);
+      context.missing(_ingredientIdMeta);
     }
     return context;
   }
@@ -1326,20 +1404,20 @@ class $InstructionStepEquipmentRelationTable
   @override
   Set<GeneratedColumn> get $primaryKey => const {};
   @override
-  InstructionStepEquipmentRelationData map(Map<String, dynamic> data,
+  InstructionStepIngredientRelationData map(Map<String, dynamic> data,
       {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return InstructionStepEquipmentRelationData(
+    return InstructionStepIngredientRelationData(
       instructionStepId: attachedDatabase.typeMapping.read(
           DriftSqlType.int, data['${effectivePrefix}instruction_step_id'])!,
-      equipmentId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}equipment_id'])!,
+      ingredientId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}ingredient_id'])!,
     );
   }
 
   @override
-  $InstructionStepEquipmentRelationTable createAlias(String alias) {
-    return $InstructionStepEquipmentRelationTable(attachedDatabase, alias);
+  $InstructionStepIngredientRelationTable createAlias(String alias) {
+    return $InstructionStepIngredientRelationTable(attachedDatabase, alias);
   }
 }
 
@@ -1457,84 +1535,6 @@ class InstructionStepIngredientRelationCompanion
           ..write('ingredientId: $ingredientId')
           ..write(')'))
         .toString();
-  }
-}
-
-class $InstructionStepIngredientRelationTable
-    extends InstructionStepIngredientRelation
-    with
-        TableInfo<$InstructionStepIngredientRelationTable,
-            InstructionStepIngredientRelationData> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $InstructionStepIngredientRelationTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _instructionStepIdMeta =
-      const VerificationMeta('instructionStepId');
-  @override
-  late final GeneratedColumn<int> instructionStepId = GeneratedColumn<int>(
-      'instruction_step_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES instruction_steps (id)'));
-  static const VerificationMeta _ingredientIdMeta =
-      const VerificationMeta('ingredientId');
-  @override
-  late final GeneratedColumn<int> ingredientId = GeneratedColumn<int>(
-      'ingredient_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES ingredients (id)'));
-  @override
-  List<GeneratedColumn> get $columns => [instructionStepId, ingredientId];
-  @override
-  String get aliasedName => _alias ?? 'instruction_step_ingredient_relation';
-  @override
-  String get actualTableName => 'instruction_step_ingredient_relation';
-  @override
-  VerificationContext validateIntegrity(
-      Insertable<InstructionStepIngredientRelationData> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('instruction_step_id')) {
-      context.handle(
-          _instructionStepIdMeta,
-          instructionStepId.isAcceptableOrUnknown(
-              data['instruction_step_id']!, _instructionStepIdMeta));
-    } else if (isInserting) {
-      context.missing(_instructionStepIdMeta);
-    }
-    if (data.containsKey('ingredient_id')) {
-      context.handle(
-          _ingredientIdMeta,
-          ingredientId.isAcceptableOrUnknown(
-              data['ingredient_id']!, _ingredientIdMeta));
-    } else if (isInserting) {
-      context.missing(_ingredientIdMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => const {};
-  @override
-  InstructionStepIngredientRelationData map(Map<String, dynamic> data,
-      {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return InstructionStepIngredientRelationData(
-      instructionStepId: attachedDatabase.typeMapping.read(
-          DriftSqlType.int, data['${effectivePrefix}instruction_step_id'])!,
-      ingredientId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}ingredient_id'])!,
-    );
-  }
-
-  @override
-  $InstructionStepIngredientRelationTable createAlias(String alias) {
-    return $InstructionStepIngredientRelationTable(attachedDatabase, alias);
   }
 }
 

@@ -25,29 +25,33 @@ class RecipesPage extends StatelessWidget {
               child: Text((state.uiState as UiStateError).message),
             );
           }
-          return ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: state.recipes.length,
-            itemBuilder: (_, index) {
-              var recipe = state.recipes[index];
-              return RecipeCard(
-                recipe.image ?? "",
-                recipe.title,
-                recipe.readyInMinutes,
-                recipe.servings,
-                index == 0
-                    ? 1
-                    : index == state.recipes.length - 1
-                        ? -1
-                        : 0,
-                () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => DetailsPage(recipe: recipe),
+          return SizedBox(
+            height: 270.0,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: state.recipes.length,
+              padding: const EdgeInsets.only(bottom: 20.0),
+              itemBuilder: (_, index) {
+                var recipe = state.recipes[index];
+                return RecipeCard(
+                  recipe.image ?? "",
+                  recipe.title,
+                  recipe.readyInMinutes,
+                  recipe.servings,
+                  index == 0
+                      ? 1
+                      : index == state.recipes.length - 1
+                          ? -1
+                          : 0,
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => DetailsPage(recipe: recipe),
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           );
         },
       ),

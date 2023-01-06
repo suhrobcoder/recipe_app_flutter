@@ -16,7 +16,10 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
     on<LoadRecipesEvent>((event, emit) async {
       emit(state.copyWith(uiState: loading));
       (await recipeRepository.getRandomRecipes()).fold(
-        (l) => emit(state.copyWith(recipes: l.recipes, uiState: success)),
+        (l) {
+          print(l);
+          emit(state.copyWith(recipes: l.recipes, uiState: success));
+        },
         (r) => emit(state.copyWith(uiState: error(r.message))),
       );
     });

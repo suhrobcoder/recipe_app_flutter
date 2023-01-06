@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/di/init_get_it.dart';
+import 'package:recipe_app/ui/pages/home/home_page.dart';
 import 'package:recipe_app/ui/pages/onboarding/bloc/onboarding_bloc.dart';
 import 'package:recipe_app/ui/pages/onboarding/onboarding_step.dart';
 import 'package:recipe_app/ui/theme/color_theme.dart';
@@ -15,7 +16,16 @@ class OnboardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<OnboardingBloc>(),
-      child: BlocBuilder<OnboardingBloc, OnboardingState>(
+      child: BlocConsumer<OnboardingBloc, OnboardingState>(
+        listener: ((context, state) {
+          if (state.navigateToHomePage) {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => const HomePage()),
+              (_) => false,
+            );
+          }
+        }),
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(

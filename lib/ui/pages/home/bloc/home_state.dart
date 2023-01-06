@@ -6,7 +6,7 @@ class HomeState extends Equatable {
   const HomeState({required this.selectedTab});
 
   factory HomeState.initial() {
-    return HomeState(
+    return const HomeState(
       selectedTab: 0,
     );
   }
@@ -20,5 +20,5 @@ class HomeState extends Equatable {
   }
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [selectedTab];
 }

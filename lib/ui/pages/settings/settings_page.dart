@@ -16,16 +16,15 @@ class SettingsPage extends StatelessWidget {
         builder: (context, state) {
           return SettingsList(
             contentPadding: const EdgeInsets.only(top: defaultPadding),
-            lightBackgroundColor: Colors.transparent,
             sections: [
               SettingsSection(
-                title: "Theme",
+                title: const Text("Theme"),
                 tiles: [
                   SettingsTile.switchTile(
-                    title: "Night theme",
+                    title: const Text("Night theme"),
                     onToggle: (value) =>
                         context.read<SettingsBloc>().add(ChangeTheme()),
-                    switchValue: state.isNightTheme,
+                    initialValue: state.isNightTheme,
                   ),
                 ],
               ),

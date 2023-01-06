@@ -38,57 +38,55 @@ class SearchRecipesGrid extends StatelessWidget {
       chunked.add(recipes.sublist(i, end));
     }
     int rowCount = chunked.length + 1;
-    return Expanded(
-      child: ListView.builder(
-        itemCount: rowCount,
-        itemBuilder: (_, index) {
-          if (index < rowCount - 1) {
-            List<RecipeSearchItem> rowRecipes = chunked[index];
-            List<Widget> recipeCards = rowRecipes.map<Widget>((recipe) {
-              return Container(
+    return ListView.builder(
+      itemCount: rowCount,
+      itemBuilder: (_, index) {
+        if (index < rowCount - 1) {
+          List<RecipeSearchItem> rowRecipes = chunked[index];
+          List<Widget> recipeCards = rowRecipes.map<Widget>((recipe) {
+            return Container(
+              width: itemWidth,
+              padding: const EdgeInsets.only(bottom: defaultPadding / 2),
+              child: SearchRecipeCard(
+                title: recipe.title,
+                image: recipe.image,
                 width: itemWidth,
-                padding: const EdgeInsets.only(bottom: defaultPadding / 2),
-                child: SearchRecipeCard(
-                  title: recipe.title,
-                  image: recipe.image,
-                  width: itemWidth,
-                  onClick: () => onClick(recipe),
-                ),
-              );
-            }).toList();
-            if (recipeCards.length < rowItemsCount) {
-              recipeCards.addAll(
-                List.generate(
-                  rowItemsCount - recipeCards.length,
-                  (index) => null,
-                ).map((element) {
-                  return Container(
-                    width: itemWidth,
-                    padding: const EdgeInsets.only(bottom: defaultPadding / 2),
-                    child: Container(),
-                  );
-                }),
-              );
-            }
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: recipeCards,
+                onClick: () => onClick(recipe),
+              ),
             );
-          } else {
-            if (loading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (error) {
-              return Center(
-                child: ElevatedButton(
-                    onPressed: retry != null ? () => retry!() : () {},
-                    child: const Text("Retry")),
-              );
-            }
+          }).toList();
+          if (recipeCards.length < rowItemsCount) {
+            recipeCards.addAll(
+              List.generate(
+                rowItemsCount - recipeCards.length,
+                (index) => null,
+              ).map((element) {
+                return Container(
+                  width: itemWidth,
+                  padding: const EdgeInsets.only(bottom: defaultPadding / 2),
+                  child: Container(),
+                );
+              }),
+            );
           }
-          return Container();
-        },
-      ),
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: recipeCards,
+          );
+        } else {
+          if (loading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (error) {
+            return Center(
+              child: ElevatedButton(
+                  onPressed: retry != null ? () => retry!() : () {},
+                  child: const Text("Retry")),
+            );
+          }
+        }
+        return Container();
+      },
     );
   }
 }

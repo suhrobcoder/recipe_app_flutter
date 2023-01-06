@@ -23,3 +23,5 @@ class ChangeCookTime extends SearchEvent {
 }
 
 class ClearAll extends SearchEvent {}
+
+class OpenPanel extends SearchEvent {}
