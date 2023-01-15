@@ -38,18 +38,25 @@ class RecipeDao extends DatabaseAccessor<SavedRecipesDatabase>
           vegetarian: recipe.vegetarian,
           cuisines: recipe.cuisines,
           diets: recipe.diets,
+          image: Value.ofNullable(recipe.image),
           servings: recipe.servings));
       for (var step in recipe.analyzedInstructions[0].steps) {
-        await into(instructionSteps).insert(InstructionStepsCompanion.insert(
-            id: Value(step.getId(recipe.id)),
-            recipeId: recipe.id,
-            number: step.number,
-            step: step.step));
+        await into(instructionSteps).insert(
+          InstructionStepsCompanion.insert(
+              id: Value(step.getId(recipe.id)),
+              recipeId: recipe.id,
+              number: step.number,
+              step: step.step),
+          mode: InsertMode.insertOrReplace,
+        );
         for (var equipment in step.equipments) {
-          await into(equipments).insert(EquipmentsCompanion.insert(
-              id: Value(equipment.id),
-              name: equipment.name,
-              image: Value(equipment.image)));
+          await into(equipments).insert(
+            EquipmentsCompanion.insert(
+                id: Value(equipment.id),
+                name: equipment.name,
+                image: Value(equipment.image)),
+            mode: InsertMode.insertOrReplace,
+          );
           await into(instructionStepEquipmentRelation).insert(
               InstructionStepEquipmentRelationCompanion.insert(
                   instructionStepId: step.getId(recipe.id),

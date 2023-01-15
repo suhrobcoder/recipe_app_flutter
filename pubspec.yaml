@@ -29,6 +29,9 @@ dependencies:
   dartz: ^0.10.1
   equatable: ^2.0.5
   sliding_up_panel: ^2.0.0+1
+  flutter_markdown: ^0.6.13
+  html2md: ^1.2.6
+  drift_db_viewer: ^2.0.0
 
 dev_dependencies:
   flutter_test:

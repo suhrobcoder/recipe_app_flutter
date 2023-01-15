@@ -1,5 +1,7 @@
+import 'package:drift_db_viewer/drift_db_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_app/data/database/saved_recipes_database.dart';
 import 'package:recipe_app/di/init_get_it.dart';
 import 'package:recipe_app/ui/components/recipe_card.dart';
 import 'package:recipe_app/ui/pages/details/details_page.dart';
@@ -25,33 +27,43 @@ class RecipesPage extends StatelessWidget {
               child: Text((state.uiState as UiStateError).message),
             );
           }
-          return SizedBox(
-            height: 270.0,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: state.recipes.length,
-              padding: const EdgeInsets.only(bottom: 20.0),
-              itemBuilder: (_, index) {
-                var recipe = state.recipes[index];
-                return RecipeCard(
-                  recipe.image ?? "",
-                  recipe.title,
-                  recipe.readyInMinutes,
-                  recipe.servings,
-                  index == 0
-                      ? 1
-                      : index == state.recipes.length - 1
-                          ? -1
-                          : 0,
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => DetailsPage(recipe: recipe),
-                    ),
-                  ),
-                );
-              },
-            ),
+          return Column(
+            children: [
+              SizedBox(
+                height: 270.0,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: state.recipes.length,
+                  padding: const EdgeInsets.only(bottom: 20.0),
+                  itemBuilder: (_, index) {
+                    var recipe = state.recipes[index];
+                    return RecipeCard(
+                      recipe.image ?? "",
+                      recipe.title,
+                      recipe.readyInMinutes,
+                      recipe.servings,
+                      index == 0
+                          ? 1
+                          : index == state.recipes.length - 1
+                              ? -1
+                              : 0,
+                      () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => DetailsPage(recipe: recipe),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        DriftDbViewer(getIt<SavedRecipesDatabase>()))),
+                child: Text("Open database"),
+              ),
+            ],
           );
         },
       ),

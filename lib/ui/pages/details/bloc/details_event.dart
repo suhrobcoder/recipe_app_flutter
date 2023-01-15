@@ -1,8 +1,17 @@
 part of 'details_bloc.dart';
 
-abstract class DetailsEvent extends Equatable {
+abstract class DetailsEvent {
   const DetailsEvent();
+}
 
-  @override
-  List<Object> get props => [];
+class PanelSlide extends DetailsEvent {
+  final double slide;
+
+  const PanelSlide(this.slide);
+}
+
+class ChangeSaved extends DetailsEvent {
+  final bool saved;
+
+  ChangeSaved(this.saved);
 }

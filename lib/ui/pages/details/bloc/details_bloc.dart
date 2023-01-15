@@ -20,7 +20,18 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
     @factoryParam this.recipe,
   ) : super(DetailsState.initialState(recipe: recipe)) {
     on<_RecipeLoadedEvent>((event, emit) {
-      emit(state.copyWith(recipe: recipe));
+      emit(state.copyWith(recipe: event.recipe, saved: event.fromDb));
+    });
+    on<PanelSlide>((event, emit) {
+      emit(state.copyWith(panelSlide: event.slide));
+    });
+    on<ChangeSaved>((event, emit) async {
+      if (state.saved) {
+        await savedRepository.removeRecipe(state.recipe);
+      } else {
+        await savedRepository.insertRecipe(state.recipe);
+      }
+      emit(state.copyWith(saved: event.saved));
     });
     loadRecipe();
   }
@@ -28,7 +39,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
   void loadRecipe() async {
     final recipeFromDb = await savedRepository.getRecipeById(recipe.id);
     if (recipeFromDb != null) {
-      add(_RecipeLoadedEvent(recipeFromDb));
+      add(_RecipeLoadedEvent(recipeFromDb, fromDb: true));
       return;
     }
     (await recipeRepository.getRecipeById(id: recipe.id)).fold(
@@ -40,6 +51,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
 
 class _RecipeLoadedEvent extends DetailsEvent {
   final Recipe recipe;
+  final bool fromDb;
 
-  const _RecipeLoadedEvent(this.recipe);
+  const _RecipeLoadedEvent(this.recipe, {this.fromDb = false});
 }
