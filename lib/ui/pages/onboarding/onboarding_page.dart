@@ -62,11 +62,11 @@ class OnboardingPage extends StatelessWidget {
                 children: [
                   Text(
                     state.currentStep.title,
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   Text(
                     "To offer you the best recipes we need to know your some information",
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: defaultPadding),
                   Expanded(

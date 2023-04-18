@@ -4,6 +4,10 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
+// ignore_for_file: unnecessary_lambdas
+// ignore_for_file: lines_longer_than_80_chars
+// coverage:ignore-file
+
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i4;
 import 'package:get_it/get_it.dart' as _i1;
@@ -33,10 +37,8 @@ import 'package:shared_preferences/shared_preferences.dart' as _i11;
 const String _dev = 'dev';
 const String _prod = 'prod';
 
-/// ignore_for_file: unnecessary_lambdas
-/// ignore_for_file: lines_longer_than_80_chars
 extension GetItInjectableX on _i1.GetIt {
-  /// initializes the registration of main-scope dependencies inside of [GetIt]
+  // initializes the registration of main-scope dependencies inside of GetIt
   Future<_i1.GetIt> init({
     String? environment,
     _i2.EnvironmentFilter? environmentFilter,
@@ -76,9 +78,9 @@ extension GetItInjectableX on _i1.GetIt {
     );
     gh.singleton<_i12.AppConfigPref>(
         _i12.AppConfigPref(gh<_i11.SharedPreferences>()));
-    gh.factory<_i13.RecipeDao>(
-        () => _i13.RecipeDao(gh<_i9.SavedRecipesDatabase>()));
-    gh.factory<_i14.SavedRecipesRepository>(
+    gh.singleton<_i13.RecipeDao>(
+        _i13.RecipeDao(gh<_i9.SavedRecipesDatabase>()));
+    gh.lazySingleton<_i14.SavedRecipesRepository>(
         () => _i14.SavedRecipesRepository(gh<_i13.RecipeDao>()));
     gh.singleton<_i15.SettingsPref>(
         _i15.SettingsPref(gh<_i11.SharedPreferences>()));

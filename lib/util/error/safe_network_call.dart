@@ -7,13 +7,11 @@ Future<Either<T, Failure>> safeNetworkCall<T>(
   try {
     return left(await block());
   } on DioError catch (error) {
-    print("Error $error");
     switch (error.type) {
-      case DioErrorType.connectTimeout:
       case DioErrorType.sendTimeout:
       case DioErrorType.receiveTimeout:
         return right(TimeoutFailure());
-      case DioErrorType.response:
+      case DioErrorType.badResponse:
         switch (error.response?.statusCode) {
           case 404:
             return right(AuthFailure());

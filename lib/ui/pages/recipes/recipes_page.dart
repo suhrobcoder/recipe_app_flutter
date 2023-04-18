@@ -1,7 +1,5 @@
-import 'package:drift_db_viewer/drift_db_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_app/data/database/saved_recipes_database.dart';
 import 'package:recipe_app/di/init_get_it.dart';
 import 'package:recipe_app/ui/components/recipe_card.dart';
 import 'package:recipe_app/ui/pages/details/details_page.dart';
@@ -56,12 +54,6 @@ class RecipesPage extends StatelessWidget {
                     );
                   },
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>
-                        DriftDbViewer(getIt<SavedRecipesDatabase>()))),
-                child: Text("Open database"),
               ),
             ],
           );

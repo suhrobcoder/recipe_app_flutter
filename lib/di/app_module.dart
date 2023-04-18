@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:dio_logging_interceptor/dio_logging_interceptor.dart';
 import 'package:injectable/injectable.dart';
 import 'package:recipe_app/data/api/auth_interceptor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,7 +19,7 @@ abstract class AppModule {
           validateStatus: ((status) => true),
         ),
       )..interceptors.addAll([
-          DioLoggingInterceptor(level: Level.basic, compact: false),
+          LogInterceptor(),
           authInterceptor,
         ]);
 

@@ -25,7 +25,7 @@ class _RecipeApi implements RecipeApi {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch<Map<String, dynamic>>(_setStreamType<Recipe>(Options(
       method: 'GET',
@@ -73,7 +73,7 @@ class _RecipeApi implements RecipeApi {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RecipeSearchResponse>(Options(
       method: 'GET',
@@ -105,7 +105,7 @@ class _RecipeApi implements RecipeApi {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RandomRecipesResponse>(Options(
       method: 'GET',
@@ -134,7 +134,7 @@ class _RecipeApi implements RecipeApi {
       r'number': number,
     };
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<RecipeSearchItem>>(Options(
       method: 'GET',

@@ -64,7 +64,8 @@ class BottomNavIcon extends StatelessWidget {
       "assets/icons/$asset",
       width: 24,
       height: 24,
-      color: selected ? Colors.black : gray500,
+      colorFilter:
+          ColorFilter.mode(selected ? Colors.black : gray500, BlendMode.srcIn),
     );
   }
 }

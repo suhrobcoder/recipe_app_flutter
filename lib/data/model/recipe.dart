@@ -20,9 +20,9 @@ class Recipe {
   final List<String> diets;
   final int servings;
   final List<Instruction> analyzedInstructions;
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false)
   late final List<Ingredient> allIngredients;
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false)
   late final List<Equipment> allEquipments;
 
   Recipe({

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 import 'package:recipe_app/data/database/saved_recipes_database.dart';
@@ -15,7 +17,7 @@ import 'package:recipe_app/data/model/recipe.dart';
 
 part 'recipe_dao.g.dart';
 
-@injectable
+@singleton
 @DriftAccessor(tables: [
   Recipes,
   Equipments,
@@ -29,8 +31,8 @@ class RecipeDao extends DatabaseAccessor<SavedRecipesDatabase>
   @factoryMethod
   RecipeDao(SavedRecipesDatabase db) : super(db);
 
-  Future<void> insertRecipe(Recipe recipe) {
-    return transaction(() async {
+  Future<void> insertRecipe(Recipe recipe) async {
+    await transaction(() async {
       await into(recipes).insert(RecipesCompanion.insert(
           id: Value(recipe.id),
           title: recipe.title,
@@ -38,7 +40,7 @@ class RecipeDao extends DatabaseAccessor<SavedRecipesDatabase>
           vegetarian: recipe.vegetarian,
           cuisines: recipe.cuisines,
           diets: recipe.diets,
-          image: Value.ofNullable(recipe.image),
+          image: Value(recipe.image),
           servings: recipe.servings));
       for (var step in recipe.analyzedInstructions[0].steps) {
         await into(instructionSteps).insert(
@@ -60,13 +62,16 @@ class RecipeDao extends DatabaseAccessor<SavedRecipesDatabase>
           await into(instructionStepEquipmentRelation).insert(
               InstructionStepEquipmentRelationCompanion.insert(
                   instructionStepId: step.getId(recipe.id),
-                  equipmentId: equipment.id));
+                  equipmentId: equipment.id),
+              onConflict: DoNothing());
         }
         for (var ingredient in step.ingredients) {
-          await into(ingredients).insert(IngredientsCompanion.insert(
-              id: Value(ingredient.id),
-              name: ingredient.name,
-              image: Value(ingredient.image)));
+          await into(ingredients).insert(
+              IngredientsCompanion.insert(
+                  id: Value(ingredient.id),
+                  name: ingredient.name,
+                  image: Value(ingredient.image)),
+              onConflict: DoNothing());
           await into(instructionStepIngredientRelation).insert(
               InstructionStepIngredientRelationCompanion.insert(
                   instructionStepId: step.getId(recipe.id),

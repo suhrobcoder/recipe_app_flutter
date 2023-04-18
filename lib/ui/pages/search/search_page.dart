@@ -43,7 +43,8 @@ class SearchPage extends StatelessWidget {
                           "assets/icons/ic_search.svg",
                           width: 20.0,
                           height: 20.0,
-                          color: Colors.black45,
+                          colorFilter: const ColorFilter.mode(
+                              Colors.black45, BlendMode.srcIn),
                         ),
                         suffixIcon: IconButton(
                           onPressed: () =>
@@ -53,7 +54,8 @@ class SearchPage extends StatelessWidget {
                             "assets/icons/ic_equalizer.svg",
                             width: 20.0,
                             height: 20.0,
-                            color: Colors.black45,
+                            colorFilter: const ColorFilter.mode(
+                                Colors.black45, BlendMode.srcIn),
                           ),
                         ),
                         hintText: "What are you searching for?",

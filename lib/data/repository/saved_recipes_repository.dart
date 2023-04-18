@@ -2,7 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:recipe_app/data/database/dao/recipe_dao.dart';
 import 'package:recipe_app/data/model/recipe.dart';
 
-@injectable
+@lazySingleton
 class SavedRecipesRepository {
   final RecipeDao recipeDao;
 

@@ -1294,30 +1294,38 @@ class InstructionStepEquipmentRelationCompanion
     extends UpdateCompanion<InstructionStepEquipmentRelationData> {
   final Value<int> instructionStepId;
   final Value<int> equipmentId;
+  final Value<int> rowid;
   const InstructionStepEquipmentRelationCompanion({
     this.instructionStepId = const Value.absent(),
     this.equipmentId = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   InstructionStepEquipmentRelationCompanion.insert({
     required int instructionStepId,
     required int equipmentId,
+    this.rowid = const Value.absent(),
   })  : instructionStepId = Value(instructionStepId),
         equipmentId = Value(equipmentId);
   static Insertable<InstructionStepEquipmentRelationData> custom({
     Expression<int>? instructionStepId,
     Expression<int>? equipmentId,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (instructionStepId != null) 'instruction_step_id': instructionStepId,
       if (equipmentId != null) 'equipment_id': equipmentId,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
   InstructionStepEquipmentRelationCompanion copyWith(
-      {Value<int>? instructionStepId, Value<int>? equipmentId}) {
+      {Value<int>? instructionStepId,
+      Value<int>? equipmentId,
+      Value<int>? rowid}) {
     return InstructionStepEquipmentRelationCompanion(
       instructionStepId: instructionStepId ?? this.instructionStepId,
       equipmentId: equipmentId ?? this.equipmentId,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -1330,6 +1338,9 @@ class InstructionStepEquipmentRelationCompanion
     if (equipmentId.present) {
       map['equipment_id'] = Variable<int>(equipmentId.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -1337,7 +1348,8 @@ class InstructionStepEquipmentRelationCompanion
   String toString() {
     return (StringBuffer('InstructionStepEquipmentRelationCompanion(')
           ..write('instructionStepId: $instructionStepId, ')
-          ..write('equipmentId: $equipmentId')
+          ..write('equipmentId: $equipmentId, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -1489,30 +1501,38 @@ class InstructionStepIngredientRelationCompanion
     extends UpdateCompanion<InstructionStepIngredientRelationData> {
   final Value<int> instructionStepId;
   final Value<int> ingredientId;
+  final Value<int> rowid;
   const InstructionStepIngredientRelationCompanion({
     this.instructionStepId = const Value.absent(),
     this.ingredientId = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   InstructionStepIngredientRelationCompanion.insert({
     required int instructionStepId,
     required int ingredientId,
+    this.rowid = const Value.absent(),
   })  : instructionStepId = Value(instructionStepId),
         ingredientId = Value(ingredientId);
   static Insertable<InstructionStepIngredientRelationData> custom({
     Expression<int>? instructionStepId,
     Expression<int>? ingredientId,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (instructionStepId != null) 'instruction_step_id': instructionStepId,
       if (ingredientId != null) 'ingredient_id': ingredientId,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
   InstructionStepIngredientRelationCompanion copyWith(
-      {Value<int>? instructionStepId, Value<int>? ingredientId}) {
+      {Value<int>? instructionStepId,
+      Value<int>? ingredientId,
+      Value<int>? rowid}) {
     return InstructionStepIngredientRelationCompanion(
       instructionStepId: instructionStepId ?? this.instructionStepId,
       ingredientId: ingredientId ?? this.ingredientId,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -1525,6 +1545,9 @@ class InstructionStepIngredientRelationCompanion
     if (ingredientId.present) {
       map['ingredient_id'] = Variable<int>(ingredientId.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -1532,7 +1555,8 @@ class InstructionStepIngredientRelationCompanion
   String toString() {
     return (StringBuffer('InstructionStepIngredientRelationCompanion(')
           ..write('instructionStepId: $instructionStepId, ')
-          ..write('ingredientId: $ingredientId')
+          ..write('ingredientId: $ingredientId, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }

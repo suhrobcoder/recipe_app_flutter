@@ -158,7 +158,7 @@ class DetailsPage extends StatelessWidget {
                                           color: colorScheme.secondary,
                                         ),
                                         child: Text(
-                                          i.toString(),
+                                          (i + 1).toString(),
                                           style: TextStyle(
                                               color: colorScheme.onSecondary),
                                         ),

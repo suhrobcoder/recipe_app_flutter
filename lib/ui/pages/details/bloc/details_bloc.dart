@@ -44,7 +44,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
     }
     (await recipeRepository.getRecipeById(id: recipe.id)).fold(
       (recipeFromNetwork) => add(_RecipeLoadedEvent(recipeFromNetwork)),
-      (failure) => print("Error ${failure.message}"),
+      (failure) {},
     );
   }
 }

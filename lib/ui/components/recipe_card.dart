@@ -19,27 +19,27 @@ class RecipeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 250,
-      height: 250,
-      margin: EdgeInsets.only(
-        left: index == 1 ? defaultPadding : defaultPadding / 4,
-        right: index == -1 ? defaultPadding : defaultPadding / 4,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16.0),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 8.0,
-            spreadRadius: 1.0,
-            offset: Offset(0, 2),
-          ),
-        ],
-        color: Colors.white,
-      ),
-      child: GestureDetector(
-        onTap: () => onClick(),
+    return GestureDetector(
+      onTap: () => onClick(),
+      child: Container(
+        width: 250,
+        height: 250,
+        margin: EdgeInsets.only(
+          left: index == 1 ? defaultPadding : defaultPadding / 4,
+          right: index == -1 ? defaultPadding : defaultPadding / 4,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16.0),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 8.0,
+              spreadRadius: 1.0,
+              offset: Offset(0, 2),
+            ),
+          ],
+          color: Colors.white,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -105,13 +105,14 @@ class RecipeInfo extends StatelessWidget {
             "assets/icons/$icon",
             width: 12,
             height: 12,
-            color: Theme.of(context).primaryColor,
+            colorFilter: ColorFilter.mode(
+                Theme.of(context).primaryColor, BlendMode.srcIn),
           ),
           const SizedBox(width: 6.0),
           Text(
             info,
             style:
-                Theme.of(context).textTheme.caption?.copyWith(color: gray500),
+                Theme.of(context).textTheme.bodySmall?.copyWith(color: gray500),
           ),
         ],
       ),
